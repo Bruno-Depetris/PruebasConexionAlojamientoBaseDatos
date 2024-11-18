@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SQLite;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -17,11 +18,43 @@ namespace PruebasConexionAlojamientoBaseDatos {
 
         }
 
-       
+        public void pruebaUno() {
+            try {
+                using (Conexion.ObtenerConexion()) {
+                    Console.WriteLine("CONEXION EXITOSA");
+                }
+            } catch (Exception ex) {
+                throw ex;
+            }
+        }
+
+        public void PedidoDatos() {
+            string datos = "";
+            try {
+                using (Conexion.ObtenerConexion()) {
+
+                    string query = "SELECT * FROM Version";
+
+                    SQLiteCommand cmd = new SQLiteCommand(query, Conexion.ObtenerConexion());
+
+                    using (SQLiteDataReader reader = cmd.ExecuteReader()) {
+
+                        while (reader.Read()) {
+                            datos += reader["Versiones"].ToString() + "\n";
+                        }
+                    }
+
+                    Console.WriteLine(datos);
+                }
+            } catch (Exception ex) {
+                throw ex;
+            }
+        }
         private void Form1_Load(object sender, EventArgs e) {
 
+            PedidoDatos();
 
-            
+
         }
 
     }

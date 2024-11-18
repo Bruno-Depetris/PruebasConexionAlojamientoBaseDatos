@@ -15,83 +15,9 @@ namespace PruebasConexionAlojamientoBaseDatos {
 
         private static string cadenaAppData = $"Data Source={Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),"prueba", "prueba.db")};Version=3;";
         private static string pathDBAppData = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "prueba", "prueba.db");
-        private static string BackUp = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "BackUpPrueba", "prueba.db");
+        private static string BackUp = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "BackUpPrueba", "prueba_backUp.db");
 
         public string datos = string.Empty;
-
-
-
-        private static Conexion _Conexion;
-        public static Conexion Instancia {
-            get {
-                if (_Conexion == null) {
-                    _Conexion = new Conexion();
-
-                }
-                return _Conexion;
-            }
-        }
-
-        private static void ComprobarVersion() {
-
-           int oldVersion = 0;
-           int newVersion = 0;
-
-            try {
-                using (SQLiteConnection conexion = new SQLiteConnection(cadena)) {
-                    conexion.Open();
-
-                    string query = "SELECT * FROM Version";
-
-                    SQLiteCommand cmd = new SQLiteCommand(query, conexion);
-
-                    using (SQLiteDataReader reader = cmd.ExecuteReader()) {
-
-                        while (reader.Read()) {
-                            newVersion = Convert.ToInt32(reader["VersionID"]);
-                        }
-                    }
-
-                   
-                }
-                using (SQLiteConnection conexion = new SQLiteConnection(cadenaAppData)) {
-                    conexion.Open();
-
-                    string query = "SELECT * FROM Version";
-
-                    SQLiteCommand cmd = new SQLiteCommand(query, conexion);
-
-                    using (SQLiteDataReader reader = cmd.ExecuteReader()) {
-
-                        while (reader.Read()) {
-                            oldVersion = Convert.ToInt32(reader["VersionID"]);
-                        }
-                    }
-
-
-                }
-                Console.WriteLine(newVersion + "\n" + oldVersion);
-
-
-
-                if (newVersion < oldVersion || newVersion == oldVersion) {
-                    Console.WriteLine("Tu base de datos esta actualizada");
-                } else if (newVersion > oldVersion) {
-                    Console.WriteLine("actualizando...");
-                    CrearBackUp();
-
-                }
-
-                  
-
-
-
-
-            } catch (Exception ex) {
-                throw ex;
-            }
-        }
-
 
         public static void Comprobar() {
             string folderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "prueba");
@@ -111,52 +37,29 @@ namespace PruebasConexionAlojamientoBaseDatos {
                 }
             }
 
-            ComprobarVersion();
+       
         }
-
-        public void pruebaUno() {
-            try {
-                using (SQLiteConnection conexion = new SQLiteConnection(cadenaAppData)) {
-                    conexion.Open();
-                    Console.WriteLine("CONEXION EXITOSA");
-                }
-            } catch (Exception ex) {
-                throw ex;
-            }
-        }
-
-        public void PedidoDatos() {
-            try {
-                using (SQLiteConnection conexion = new SQLiteConnection(cadenaAppData)) {
-                    conexion.Open();
-
-                    string query = "SELECT * FROM Version";
-
-                    SQLiteCommand cmd = new SQLiteCommand(query,conexion);
-
-                    using (SQLiteDataReader reader = cmd.ExecuteReader()) {
-
-                        while (reader.Read()) {
-                            datos += reader["Versiones"].ToString() + "\n";
-                        }
-                    }
-
-                    Console.WriteLine(datos);
-                }
-            } catch (Exception ex) {
-                throw ex;
-            }
-        }
-
         public static void CrearBackUp() {
             try {
+                string backupFolderPath = Path.GetDirectoryName(BackUp);
+
+                if (!Directory.Exists(backupFolderPath)) {
+                    Directory.CreateDirectory(backupFolderPath);
+                    Console.WriteLine("La carpeta de respaldo no existía, fue creada con éxito");
+                }
+
+
                 if (!File.Exists(BackUp)) {
 
-                    File.Copy(pathDBAppData, BackUp, true);
+                    if (File.Exists(pathDBAppData)) {
+                        File.Copy(pathDBAppData, BackUp, true);
+                    } else {
+                        Console.WriteLine("El archivo no se encuentra en ruta especificada");
+                    }
                     Console.WriteLine("backUpCreado");
+
                 } else {
 
-            
 
                 }
 
@@ -165,6 +68,22 @@ namespace PruebasConexionAlojamientoBaseDatos {
                 Console.WriteLine("HUBO UN ERROR" + ex);
             }
         }
+        public static SQLiteConnection ObtenerConexion() {
+            try {
+                string cadenaConexion = cadenaAppData;
+                var conexion = new SQLiteConnection(cadenaConexion);
+                conexion.Open(); 
+
+                return conexion;
+
+            } catch (Exception ex) {
+                Console.WriteLine($"Error al obtener la conexión: {ex.Message}");
+                throw;
+            }
+        }
+
+
+
 
     }
 }

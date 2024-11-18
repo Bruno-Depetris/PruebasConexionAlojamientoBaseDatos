@@ -15,6 +15,7 @@ namespace PruebasConexionAlojamientoBaseDatos {
 
             AppDomain.CurrentDomain.SetData("DataDirectory", AppDomain.CurrentDomain.BaseDirectory);
             Conexion.Comprobar();
+
             //Conexion.Instancia.PedidoDatos();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
