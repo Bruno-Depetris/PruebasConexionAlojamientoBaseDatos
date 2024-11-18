@@ -39,7 +39,7 @@ namespace PruebasConexionAlojamientoBaseDatos {
 
        
         }
-        public static void CrearBackUp() {
+        public static string CrearBackUp() {
             try {
                 string backupFolderPath = Path.GetDirectoryName(BackUp);
 
@@ -57,7 +57,7 @@ namespace PruebasConexionAlojamientoBaseDatos {
                         Console.WriteLine("El archivo no se encuentra en ruta especificada");
                     }
                     Console.WriteLine("backUpCreado");
-
+                    
                 } else {
 
 
@@ -66,7 +66,10 @@ namespace PruebasConexionAlojamientoBaseDatos {
             } catch (Exception ex) {
 
                 Console.WriteLine("HUBO UN ERROR" + ex);
+                return "error";
             }
+            
+            return BackUp;
         }
         public static SQLiteConnection ObtenerConexion() {
             try {
@@ -82,7 +85,9 @@ namespace PruebasConexionAlojamientoBaseDatos {
             }
         }
 
-
+        public static void CargarNuevaBD(string NuevaBD) {
+           
+        }
 
 
     }

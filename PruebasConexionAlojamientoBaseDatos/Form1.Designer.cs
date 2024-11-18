@@ -25,12 +25,11 @@
         private void InitializeComponent() {
             this.button_Conectar = new System.Windows.Forms.Button();
             this.button_Redirigir = new System.Windows.Forms.Button();
-            this.button_Direccion = new System.Windows.Forms.Button();
+            this.button_EnviarGmail = new System.Windows.Forms.Button();
             this.button_Restaurar = new System.Windows.Forms.Button();
-            this.label = new System.Windows.Forms.Label();
-            this.label_Estado = new System.Windows.Forms.Label();
-            this.label_Direccion = new System.Windows.Forms.Label();
-            this.label_EstadoConect = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.button_Login = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button_Conectar
@@ -51,14 +50,15 @@
             this.button_Redirigir.Text = "Redirigir";
             this.button_Redirigir.UseVisualStyleBackColor = true;
             // 
-            // button_Direccion
+            // button_EnviarGmail
             // 
-            this.button_Direccion.Location = new System.Drawing.Point(12, 70);
-            this.button_Direccion.Name = "button_Direccion";
-            this.button_Direccion.Size = new System.Drawing.Size(75, 23);
-            this.button_Direccion.TabIndex = 2;
-            this.button_Direccion.Text = "Direccion";
-            this.button_Direccion.UseVisualStyleBackColor = true;
+            this.button_EnviarGmail.Location = new System.Drawing.Point(12, 70);
+            this.button_EnviarGmail.Name = "button_EnviarGmail";
+            this.button_EnviarGmail.Size = new System.Drawing.Size(75, 23);
+            this.button_EnviarGmail.TabIndex = 2;
+            this.button_EnviarGmail.Text = "Gmail";
+            this.button_EnviarGmail.UseVisualStyleBackColor = true;
+            this.button_EnviarGmail.Click += new System.EventHandler(this.button_EnviarGmail_Click);
             // 
             // button_Restaurar
             // 
@@ -69,53 +69,40 @@
             this.button_Restaurar.Text = "Restaurar";
             this.button_Restaurar.UseVisualStyleBackColor = true;
             // 
-            // label
+            // textBox1
             // 
-            this.label.AutoSize = true;
-            this.label.Location = new System.Drawing.Point(121, 12);
-            this.label.Name = "label";
-            this.label.Size = new System.Drawing.Size(38, 13);
-            this.label.TabIndex = 4;
-            this.label.Text = "Datos:";
+            this.textBox1.Location = new System.Drawing.Point(139, 14);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(221, 20);
+            this.textBox1.TabIndex = 4;
             // 
-            // label_Estado
+            // textBox2
             // 
-            this.label_Estado.AutoSize = true;
-            this.label_Estado.Location = new System.Drawing.Point(136, 41);
-            this.label_Estado.Name = "label_Estado";
-            this.label_Estado.Size = new System.Drawing.Size(40, 13);
-            this.label_Estado.TabIndex = 5;
-            this.label_Estado.Text = "Estado";
+            this.textBox2.Location = new System.Drawing.Point(139, 44);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(221, 20);
+            this.textBox2.TabIndex = 5;
             // 
-            // label_Direccion
+            // button_Login
             // 
-            this.label_Direccion.AutoSize = true;
-            this.label_Direccion.Location = new System.Drawing.Point(136, 70);
-            this.label_Direccion.Name = "label_Direccion";
-            this.label_Direccion.Size = new System.Drawing.Size(40, 13);
-            this.label_Direccion.TabIndex = 6;
-            this.label_Direccion.Text = "Estado";
-            // 
-            // label_EstadoConect
-            // 
-            this.label_EstadoConect.AutoSize = true;
-            this.label_EstadoConect.Location = new System.Drawing.Point(165, 12);
-            this.label_EstadoConect.Name = "label_EstadoConect";
-            this.label_EstadoConect.Size = new System.Drawing.Size(40, 13);
-            this.label_EstadoConect.TabIndex = 7;
-            this.label_EstadoConect.Text = "Estado";
+            this.button_Login.Location = new System.Drawing.Point(139, 70);
+            this.button_Login.Name = "button_Login";
+            this.button_Login.Size = new System.Drawing.Size(75, 23);
+            this.button_Login.TabIndex = 6;
+            this.button_Login.Text = "Login";
+            this.button_Login.UseVisualStyleBackColor = true;
+            this.button_Login.Click += new System.EventHandler(this.button_Login_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(350, 136);
-            this.Controls.Add(this.label_EstadoConect);
-            this.Controls.Add(this.label_Direccion);
-            this.Controls.Add(this.label_Estado);
-            this.Controls.Add(this.label);
+            this.ClientSize = new System.Drawing.Size(558, 259);
+            this.Controls.Add(this.button_Login);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button_Restaurar);
-            this.Controls.Add(this.button_Direccion);
+            this.Controls.Add(this.button_EnviarGmail);
             this.Controls.Add(this.button_Redirigir);
             this.Controls.Add(this.button_Conectar);
             this.Name = "Form1";
@@ -130,12 +117,11 @@
 
         private System.Windows.Forms.Button button_Conectar;
         private System.Windows.Forms.Button button_Redirigir;
-        private System.Windows.Forms.Button button_Direccion;
+        private System.Windows.Forms.Button button_EnviarGmail;
         private System.Windows.Forms.Button button_Restaurar;
-        private System.Windows.Forms.Label label;
-        private System.Windows.Forms.Label label_Estado;
-        private System.Windows.Forms.Label label_Direccion;
-        private System.Windows.Forms.Label label_EstadoConect;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Button button_Login;
     }
 }
 
